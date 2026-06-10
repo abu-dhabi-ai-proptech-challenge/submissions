@@ -1,0 +1,139 @@
+name: "🚀 Project Submission"
+description: "Submit your team's project for the Abu Dhabi AI City Challenge. One submission per team, before the deadline."
+title: "[Submission] <Team Name> — <Project Name>"
+labels:
+  - submission
+  - needs-review
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Abu Dhabi AI City Challenge — Project Submission
+
+        **Building the Intelligence Layer for Land, Investment and Communities**
+
+        One submission per team. The timestamp on this Issue is your official submission time — late submissions are not judged. Read the [submission guide](../blob/main/docs/submission-guide.md) before you start.
+
+  - type: input
+    id: team-name
+    attributes:
+      label: Team name
+      placeholder: "e.g. Falcon Stack"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: track
+    attributes:
+      label: Track
+      description: The track you are submitting under. One track per team — organizers will apply the matching track label.
+      options:
+        - Land Intelligence
+        - Investment Intelligence
+        - Future Communities
+        - Decision Intelligence
+    validations:
+      required: true
+
+  - type: textarea
+    id: team-members
+    attributes:
+      label: Team members
+      description: Names and GitHub handles. One per line.
+      placeholder: |
+        Aisha K — @aishak
+        Omar B — @omarb
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Project summary
+      description: The elevator pitch — what is it, in 2–3 sentences?
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What problem are you solving, and for whom?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solution
+      description: How does your prototype solve it? What does the AI actually do?
+    validations:
+      required: true
+
+  - type: textarea
+    id: tech-stack
+    attributes:
+      label: Tech stack
+      description: Languages, frameworks, models, APIs, infrastructure.
+      placeholder: "Next.js, Python, Claude API, pandas, Vercel"
+    validations:
+      required: true
+
+  - type: input
+    id: repo-link
+    attributes:
+      label: GitHub repo link
+      description: Public repo preferred. If private, grant the organizer account access before submitting.
+      placeholder: "https://github.com/your-team/your-project"
+    validations:
+      required: true
+
+  - type: input
+    id: demo-link
+    attributes:
+      label: Demo link
+      description: Deployed app URL, or a 2–3 minute video walkthrough.
+      placeholder: "https://your-demo.vercel.app or video link"
+    validations:
+      required: true
+
+  - type: input
+    id: slides-link
+    attributes:
+      label: Slides link
+      description: Optional but recommended.
+      placeholder: "https://..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: built-during-hackathon
+    attributes:
+      label: What was built during the hackathon
+      description: Be specific — judges read this carefully. What existed before today (libraries, boilerplate) vs. what your team built during the event?
+    validations:
+      required: true
+
+  - type: textarea
+    id: setup-instructions
+    attributes:
+      label: Setup instructions
+      description: How does a judge run your project? Include any environment variables (without values) or sample credentials behavior.
+      placeholder: |
+        git clone ...
+        npm install
+        npm run dev
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: This prototype was built during the hackathon by the team listed above.
+          required: true
+        - label: No real personal or confidential data is included in our repo or demo.
+          required: true
+        - label: We agree to the event code of conduct.
+          required: true

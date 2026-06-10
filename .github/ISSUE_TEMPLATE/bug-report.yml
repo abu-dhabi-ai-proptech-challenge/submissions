@@ -1,0 +1,59 @@
+name: "🛠️ Technical Help / Bug Report"
+description: "Report a problem with the starter kit, sample data, project template, or submission process."
+title: "[Help] <short description>"
+labels:
+  - technical-help
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For urgent help during the event, grab a mentor at the venue or ask on Discord (DISCORD_URL). Use this form for reproducible problems with the event repos.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where is the problem?
+      options:
+        - starter-kit (docs, examples, notebooks)
+        - Sample datasets
+        - project-template
+        - Submission form / process
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, what happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. cd examples/land-intelligence-agent
+        2. python main.py
+        3. ...
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error output / logs
+      description: Paste any error messages. This will be formatted as code automatically.
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: "macOS 15 / Python 3.12 / Node 20"
+    validations:
+      required: false

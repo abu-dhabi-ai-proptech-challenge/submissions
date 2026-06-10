@@ -1,0 +1,33 @@
+name: "❓ Question"
+description: "Ask about rules, tracks, data, judging, or logistics."
+title: "[Question] <your question in one line>"
+labels:
+  - question
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Check the [FAQ](https://github.com/abu-dhabi-ai-city-challenge/starter-kit/blob/main/docs/faq.md) first — many answers are already there. For fast answers during the event, Discord (DISCORD_URL) is quicker.
+
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Topic
+      options:
+        - Rules & eligibility
+        - Tracks
+        - Datasets
+        - Submission process
+        - Judging
+        - Event logistics
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: The more specific, the faster the answer.
+    validations:
+      required: true
