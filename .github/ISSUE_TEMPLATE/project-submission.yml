@@ -126,6 +126,15 @@ body:
     validations:
       required: true
 
+  - type: textarea
+    id: cursor-usage
+    attributes:
+      label: How did you use Cursor?
+      description: Optional — but it's what the Cursor team reads to judge the ⚡ Best Use of Cursor award. Concrete workflows beat generic praise.
+      placeholder: "e.g. agent built the dashboard scaffold from a prompt; rules file kept it on our data model; composer wrote the CSV parser + tests"
+    validations:
+      required: false
+
   - type: checkboxes
     id: confirmations
     attributes:

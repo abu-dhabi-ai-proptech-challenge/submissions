@@ -41,7 +41,8 @@ EVIDENCE_CAP = 12_000  # chars of repo evidence per submission
 
 FIELDS = ["Team name", "Track", "Project summary", "Problem", "Solution", "Tech stack",
           "GitHub repo link", "Demo link", "Slides link",
-          "What was built during the hackathon", "Setup instructions"]
+          "What was built during the hackathon", "Setup instructions",
+          "How did you use Cursor?"]
 
 CRITERIA = ["problem_relevance", "technical_execution", "use_of_ai", "demo_readiness", "potential_impact"]
 
