@@ -1,0 +1,55 @@
+name: AI Judge — live (per submission)
+
+# Fully automatic: every new submission is evaluated the moment it arrives.
+#  - the team gets a constructive feedback comment (never scores)
+#  - organizers get the scored card in the private Discord #ops channel
+# Skips silently (with a notice) until the ANTHROPIC_API_KEY secret is set.
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+  contents: read
+
+concurrency:
+  group: ai-judge-live-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  judge-one:
+    if: contains(github.event.issue.labels.*.name, 'submission')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install anthropic
+
+      - name: Evaluate submission
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::notice::ANTHROPIC_API_KEY secret not set — live AI judging skipped."
+            echo "SKIPPED=true" >> "$GITHUB_ENV"
+            exit 0
+          fi
+          python3 .github/scripts/ai_judge.py \
+            --issue "${{ github.event.issue.number }}" \
+            --include-late \
+            --post-feedback \
+            --out ai-judge-card.md
+
+      - name: Send scored card to Discord ops
+        if: env.SKIPPED != 'true'
+        env:
+          OPS_WEBHOOK: ${{ secrets.DISCORD_OPS_WEBHOOK }}
+        run: |
+          curl -sf -F "payload_json={\"content\":\"🤖 **AI Judge** — new submission evaluated: ${{ github.event.issue.html_url }}\",\"username\":\"AI Judge\"}" \
+               -F "file=@ai-judge-card.md" "$OPS_WEBHOOK" > /dev/null
+          echo "card delivered to #ops"

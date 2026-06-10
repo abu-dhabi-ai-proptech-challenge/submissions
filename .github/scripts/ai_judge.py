@@ -168,6 +168,8 @@ def judge(client, dossier: str) -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true", help="build dossiers, skip Claude")
+    ap.add_argument("--issue", type=int, default=None,
+                    help="judge a single Issue number (live per-submission mode)")
     ap.add_argument("--include-late", action="store_true")
     ap.add_argument("--post-feedback", action="store_true",
                     help="comment strengths/concerns (never scores) on each Issue")
@@ -184,6 +186,8 @@ def main() -> None:
             continue
         subs.append({"number": issue["number"], "url": issue["url"],
                      "late": "late" in labels, **parse_fields(issue["body"])})
+    if args.issue is not None:
+        subs = [s for s in subs if s["number"] == args.issue]
     if not subs:
         sys.exit("No submissions to judge.")
     print(f"{len(subs)} submissions to evaluate")

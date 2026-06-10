@@ -54,7 +54,13 @@ Calibration rules baked into the prompt:
 
 ## For organizers
 
-Trigger: **Actions → AI Judge (advisory) → Run workflow** (needs the `ANTHROPIC_API_KEY` repo secret). The report lands as a private workflow artifact. Options: include late submissions, post feedback comments to teams. Local run: `ANTHROPIC_API_KEY=... python3 .github/scripts/ai_judge.py` from the repo root.
+Everything runs automatically once the `ANTHROPIC_API_KEY` repo secret is set:
+
+- **Live, per submission** (`ai-judge-live.yml`) — every new submission is evaluated within minutes of arriving: the team gets its feedback comment, organizers get the scored card in the private Discord ops channel.
+- **Full report** (`ai-judge.yml`) — a cron watches the `DEADLINE_UTC` repo variable; once the deadline passes, the complete ranked report is generated exactly once and delivered to the ops channel. It can also be run manually from the Actions tab anytime (e.g. a mid-day preview).
+- Scores are never published — reports go to the private ops channel only, not to public artifacts.
+
+Local run for debugging: `ANTHROPIC_API_KEY=... python3 .github/scripts/ai_judge.py [--issue N] [--dry-run]` from the repo root.
 
 ---
 

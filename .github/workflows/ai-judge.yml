@@ -1,13 +1,17 @@
-name: AI Judge (advisory)
+name: AI Judge (full report)
 
-# Manually-triggered advisory pre-screen of all submissions.
-# Run it at the deadline freeze; the report lands as a workflow artifact
-# (visible only to people with repo access — scores are never public).
+# Generates the full advisory report over ALL submissions and delivers it to
+# the private Discord #ops channel. Two ways it runs:
 #
-# Requires the ANTHROPIC_API_KEY repository secret
-# (Repo → Settings → Secrets and variables → Actions → New repository secret).
+#  AUTOMATIC — the cron fires every 30 min; once the repo variable
+#  DEADLINE_UTC has passed, it runs exactly once (guarded by the
+#  AI_JUDGE_COMPLETED variable it sets afterwards) and delivers the report.
 #
-# Methodology, limits, and what this does NOT do: docs/ai-judge.md
+#  MANUAL — Actions → Run workflow, anytime (e.g. a mid-day preview).
+#
+# Scores are never published: the report goes to Discord #ops only.
+# Requires secrets: ANTHROPIC_API_KEY, DISCORD_OPS_WEBHOOK.
+# Methodology: docs/ai-judge.md
 on:
   workflow_dispatch:
     inputs:
@@ -19,35 +23,80 @@ on:
         description: "Comment strengths/improvement notes on each Issue (never scores)"
         type: boolean
         default: false
+  schedule:
+    - cron: "*/30 * * * *"
 
 permissions:
   issues: write
   contents: read
+  actions: write   # lets the workflow set the AI_JUDGE_COMPLETED variable
+
+concurrency:
+  group: ai-judge-full
+  cancel-in-progress: false
 
 jobs:
   judge:
     runs-on: ubuntu-latest
     steps:
+      - name: Deadline gate (scheduled runs only)
+        if: github.event_name == 'schedule'
+        env:
+          DEADLINE_UTC: ${{ vars.DEADLINE_UTC }}
+          ALREADY_DONE: ${{ vars.AI_JUDGE_COMPLETED }}
+        run: |
+          if [ -z "$DEADLINE_UTC" ]; then
+            echo "::notice::DEADLINE_UTC not set — nothing to do."; echo "GATE=closed" >> "$GITHUB_ENV"; exit 0
+          fi
+          if [ -n "$ALREADY_DONE" ]; then
+            echo "::notice::Report already generated at $ALREADY_DONE."; echo "GATE=closed" >> "$GITHUB_ENV"; exit 0
+          fi
+          now=$(date -u +%s); dl=$(date -u -d "$DEADLINE_UTC" +%s)
+          if [ "$now" -lt "$dl" ]; then
+            echo "::notice::Deadline not reached yet."; echo "GATE=closed" >> "$GITHUB_ENV"; exit 0
+          fi
+          echo "GATE=open" >> "$GITHUB_ENV"
+
+      - name: Open gate for manual runs
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "GATE=open" >> "$GITHUB_ENV"
+
       - uses: actions/checkout@v4
+        if: env.GATE == 'open'
 
       - uses: actions/setup-python@v5
+        if: env.GATE == 'open'
         with:
           python-version: "3.12"
 
-      - run: pip install anthropic
+      - if: env.GATE == 'open'
+        run: pip install anthropic
 
-      - name: Run AI Judge
+      - name: Generate full report
+        if: env.GATE == 'open'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GH_TOKEN: ${{ github.token }}
         run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::warning::ANTHROPIC_API_KEY secret not set — cannot judge."; exit 0
+          fi
           python3 .github/scripts/ai_judge.py \
-            ${{ inputs.include_late && '--include-late' || '' }} \
-            ${{ inputs.post_feedback && '--post-feedback' || '' }}
+            ${{ (github.event_name == 'schedule' || inputs.include_late) && '--include-late' || '' }} \
+            ${{ inputs.post_feedback && '--post-feedback' || '' }} \
+            --out ai-judge-report.md
+          echo "REPORT=ready" >> "$GITHUB_ENV"
 
-      - name: Upload report
-        uses: actions/upload-artifact@v4
-        with:
-          name: ai-judge-report
-          path: ai-judge-report.md
-          retention-days: 30
+      - name: Deliver report to Discord ops
+        if: env.REPORT == 'ready'
+        env:
+          OPS_WEBHOOK: ${{ secrets.DISCORD_OPS_WEBHOOK }}
+        run: |
+          curl -sf -F "payload_json={\"content\":\"📊 **AI Judge — full report** (${{ github.event_name == 'schedule' && 'automatic, deadline reached' || 'manual run' }}). Advisory only — humans decide.\",\"username\":\"AI Judge\"}" \
+               -F "file=@ai-judge-report.md" "$OPS_WEBHOOK" > /dev/null
+
+      - name: Mark completed (scheduled runs only)
+        if: env.REPORT == 'ready' && github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh variable set AI_JUDGE_COMPLETED --repo "$GITHUB_REPOSITORY" --body "$(date -u +%Y-%m-%dT%H:%M:%SZ)"

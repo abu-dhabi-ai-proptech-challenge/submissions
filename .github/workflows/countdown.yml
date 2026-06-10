@@ -1,0 +1,77 @@
+name: Deadline countdown announcer
+
+# Fully automatic deadline countdown in Discord #announcements.
+# Set the DEADLINE_UTC repo variable and forget about it: announcements fire
+# at T-6h, T-2h, T-1h, T-30m, T-10m and at the deadline. Idempotent — each
+# milestone posts once (tracked in the COUNTDOWN_POSTED variable).
+#
+# Note: GitHub cron has jitter; messages can land a few minutes late. For
+# to-the-second precision there is a fallback script: event-ops/scripts/countdown.py
+#
+# Requires: vars.DEADLINE_UTC, secrets.DISCORD_ANNOUNCE_WEBHOOK.
+# The workflow_dispatch "test" input posts a self-identified test message.
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "Post a test message to #announcements now"
+        type: boolean
+        default: true
+
+permissions:
+  actions: write   # to update the COUNTDOWN_POSTED variable
+
+concurrency:
+  group: countdown
+  cancel-in-progress: false
+
+jobs:
+  announce:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test message (manual runs)
+        if: github.event_name == 'workflow_dispatch' && inputs.test
+        env:
+          WEBHOOK: ${{ secrets.DISCORD_ANNOUNCE_WEBHOOK }}
+        run: |
+          curl -sf -H "Content-Type: application/json" \
+            -d '{"content":"🔧 Countdown workflow test — announcements are wired up correctly.","username":"Event Countdown"}' \
+            "$WEBHOOK" > /dev/null && echo "test message posted"
+
+      - name: Fire pending milestones
+        if: github.event_name == 'schedule'
+        env:
+          DEADLINE_UTC: ${{ vars.DEADLINE_UTC }}
+          POSTED: ${{ vars.COUNTDOWN_POSTED }}
+          WEBHOOK: ${{ secrets.DISCORD_ANNOUNCE_WEBHOOK }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -z "$DEADLINE_UTC" ] && { echo "::notice::DEADLINE_UTC not set."; exit 0; }
+          now=$(date -u +%s); dl=$(date -u -d "$DEADLINE_UTC" +%s)
+          SUBMIT="https://github.com/${GITHUB_REPOSITORY}/issues/new/choose"
+
+          declare -A MSG
+          MSG[360]="⏳ **6 hours to the submission deadline.** Plenty of time — but start your repo and skim the form now: <$SUBMIT>"
+          MSG[120]="⏳ **2 hours left.** Freeze scope, polish the demo path. Record a fallback demo video NOW — deploys love to break at the worst moment."
+          MSG[60]="⏰ **1 hour left.** The form takes ~10 minutes. Submitting early and editing later beats submitting at the buzzer: <$SUBMIT>"
+          MSG[30]="🚨 **30 minutes!** If you haven't opened the submission Issue yet, do it right now and edit details after: <$SUBMIT>"
+          MSG[10]="🚨 **10 MINUTES.** Submit. Now. Polish later."
+          MSG[0]="🏁 **Submissions are closed.** The Issue timestamp is what counts. Demos and judging info coming up — great work, everyone. 👏"
+
+          posted="$POSTED"
+          for offset in 360 120 60 30 10 0; do
+            case ",$posted," in *",$offset,"*) continue;; esac
+            fire=$(( dl - offset * 60 ))
+            # fire window: from the milestone until 15 min after (tolerates cron jitter)
+            if [ "$now" -ge "$fire" ] && [ "$now" -lt $(( fire + 900 )) ]; then
+              jq -n --arg c "${MSG[$offset]}" '{content:$c,username:"Event Countdown"}' \
+                | curl -sf -H "Content-Type: application/json" -d @- "$WEBHOOK" > /dev/null
+              posted="${posted:+$posted,}$offset"
+              echo "posted T-${offset}min"
+            fi
+          done
+          if [ "$posted" != "$POSTED" ]; then
+            gh variable set COUNTDOWN_POSTED --repo "$GITHUB_REPOSITORY" --body "$posted"
+          fi
