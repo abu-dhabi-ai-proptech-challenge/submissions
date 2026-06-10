@@ -1,6 +1,6 @@
 # The AI Judge — How It Works
 
-The Abu Dhabi AI PropTech Challenge is about building the intelligence layer for cities — so we built one for the event itself. Every submission is pre-screened by an **AI Judge** powered by Claude. This page explains exactly what it does, how it scores, and what it will never do. The full source is public: [`.github/scripts/ai_judge.py`](../.github/scripts/ai_judge.py).
+The Abu Dhabi AI PropTech Challenge is about building the intelligence layer for cities — so we built one for the event itself. Every submission is pre-screened by an **AI Judge** powered by Claude. This page explains exactly what it does, how it scores, and what it will never do. It was built by the organizers at [eVoost AI](https://evoost.ai) — the event runs on its own intelligence layer ([the full story](https://github.com/abu-dhabi-ai-proptech-challenge/starter-kit/blob/main/docs/how-this-event-runs-on-ai.md)). The full source is public: [`.github/scripts/ai_judge.py`](../.github/scripts/ai_judge.py).
 
 ## The one rule that matters
 

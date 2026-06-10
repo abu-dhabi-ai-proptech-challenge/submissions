@@ -50,6 +50,6 @@ jobs:
         env:
           OPS_WEBHOOK: ${{ secrets.DISCORD_OPS_WEBHOOK }}
         run: |
-          curl -sf -F "payload_json={\"content\":\"🤖 **AI Judge** — new submission evaluated: ${{ github.event.issue.html_url }}\",\"username\":\"AI Judge\"}" \
+          curl -sf -F "payload_json={\"content\":\"🤖 **AI Judge** — new submission evaluated: ${{ github.event.issue.html_url }}\",\"username\":\"eVoost AI Judge\"}" \
                -F "file=@ai-judge-card.md" "$OPS_WEBHOOK" > /dev/null
           echo "card delivered to #ops"

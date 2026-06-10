@@ -92,7 +92,7 @@ jobs:
         env:
           OPS_WEBHOOK: ${{ secrets.DISCORD_OPS_WEBHOOK }}
         run: |
-          curl -sf -F "payload_json={\"content\":\"📊 **AI Judge — full report** (${{ github.event_name == 'schedule' && 'automatic, deadline reached' || 'manual run' }}). Advisory only — humans decide.\",\"username\":\"AI Judge\"}" \
+          curl -sf -F "payload_json={\"content\":\"📊 **AI Judge — full report** (${{ github.event_name == 'schedule' && 'automatic, deadline reached' || 'manual run' }}). Advisory only — humans decide.\",\"username\":\"eVoost AI Judge\"}" \
                -F "file=@ai-judge-report.md" "$OPS_WEBHOOK" > /dev/null
 
       - name: Mark completed (scheduled runs only)
