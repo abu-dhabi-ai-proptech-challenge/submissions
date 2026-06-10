@@ -1,0 +1,46 @@
+name: Deadline guard
+
+# Marks submissions opened after the deadline with the `late` label.
+# Activate by setting the repository variable DEADLINE_UTC to an ISO 8601
+# UTC timestamp, e.g. 2026-09-17T14:00:00Z
+# (Repo → Settings → Secrets and variables → Actions → Variables).
+# While DEADLINE_UTC is unset, this workflow does nothing.
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  guard:
+    if: contains(github.event.issue.labels.*.name, 'submission') && vars.DEADLINE_UTC != ''
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        env:
+          DEADLINE_UTC: ${{ vars.DEADLINE_UTC }}
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const deadline = new Date(process.env.DEADLINE_UTC);
+            const openedAt = new Date(issue.created_at);
+            if (isNaN(deadline.getTime())) {
+              core.warning(`DEADLINE_UTC is not a valid date: ${process.env.DEADLINE_UTC}`);
+              return;
+            }
+            if (openedAt <= deadline) return;
+
+            const minutesLate = Math.round((openedAt - deadline) / 60000);
+            await github.rest.issues.addLabels({
+              ...context.repo, issue_number: issue.number, labels: ["late"],
+            });
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: issue.number,
+              body: [
+                `⏰ **This submission arrived after the deadline** (${process.env.DEADLINE_UTC}, by ~${minutesLate} min) and has been labeled \`late\`.`,
+                "",
+                "Per the event rules, late submissions are not judged. If you believe this is an error (e.g. a duplicate of an on-time Issue), reply here and an organizer will review it.",
+              ].join("\n"),
+            });

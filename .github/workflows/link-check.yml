@@ -1,0 +1,80 @@
+name: Submission link check
+
+# Checks that the repo / demo / slides links in a submission actually resolve.
+# Comments on the Issue ONLY when something is broken, so teams can fix it
+# before the deadline instead of judges discovering it after.
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+
+jobs:
+  check-links:
+    if: contains(github.event.issue.labels.*.name, 'submission')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || "";
+
+            // Issue Forms render inputs as "### <Label>\n\n<value>"
+            const field = (label) => {
+              const m = body.match(new RegExp(`###\\s*${label}\\s*\\n+\\s*(.+)`));
+              const v = m ? m[1].trim() : "";
+              return v && v !== "_No response_" ? v : null;
+            };
+
+            const targets = [
+              ["GitHub repo link", field("GitHub repo link")],
+              ["Demo link", field("Demo link")],
+              ["Slides link", field("Slides link")],
+            ].filter(([, url]) => url && /^https?:\/\//.test(url));
+
+            const problems = [];
+            for (const [name, url] of targets) {
+              try {
+                const controller = new AbortController();
+                const timer = setTimeout(() => controller.abort(), 15000);
+                const res = await fetch(url, {
+                  method: "GET",
+                  redirect: "follow",
+                  signal: controller.signal,
+                  headers: { "User-Agent": "adcc-link-check/1.0" },
+                });
+                clearTimeout(timer);
+                if (res.status === 404) {
+                  problems.push(`- **${name}** → \`404 Not Found\`: ${url} — typo, or a private repo? If private, grant the organizer account access.`);
+                } else if (res.status >= 400 && res.status !== 401 && res.status !== 403) {
+                  problems.push(`- **${name}** → \`HTTP ${res.status}\`: ${url}`);
+                }
+                // 401/403 tolerated: many valid demos sit behind auth walls or block bots
+              } catch (err) {
+                problems.push(`- **${name}** → unreachable (\`${err.name}\`): ${url}`);
+              }
+            }
+
+            if (problems.length === 0) return;
+
+            const marker = "<!-- adcc-link-check -->";
+            // Avoid repeating the identical warning on every edit
+            const comments = await github.rest.issues.listComments({
+              ...context.repo, issue_number: issue.number, per_page: 100,
+            });
+            const previous = comments.data.filter(c => c.body.includes(marker)).pop();
+            const newBody = [
+              marker,
+              "⚠️ **Link check found problems with this submission:**",
+              "",
+              ...problems,
+              "",
+              "Judges can only score what they can open. You can edit the Issue to fix links **until the deadline** — this check reruns automatically on every edit.",
+            ].join("\n");
+
+            if (previous && previous.body === newBody) return;
+            await github.rest.issues.createComment({
+              ...context.repo, issue_number: issue.number, body: newBody,
+            });
