@@ -16,4 +16,4 @@ Open a PR here only to improve the docs in this repo.
 ## Checklist
 
 - [ ] I am **not** submitting a project here (projects go via the [Project Submission Issue form](../../issues/new?template=project-submission.yml))
-- [ ] Links work and placeholders (`WEBSITE_URL`, `DISCORD_URL`, ...) are preserved unless intentionally replaced
+- [ ] Links work and remaining placeholders (`WEBSITE_URL`, `REGISTER_URL`, ...) are preserved unless intentionally replaced

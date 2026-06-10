@@ -46,4 +46,4 @@ Every field matters, but judges weight two especially:
 - [ ] Selected track matches the project
 - [ ] Submitted with time to spare — the form takes a few minutes
 
-Questions? Open a **[Question issue](../../../issues/new?template=question.yml)** or ask on Discord (DISCORD_URL).
+Questions? Open a **[Question issue](../../../issues/new?template=question.yml)** or ask on Discord (https://discord.gg/jy3QDxQ3jK).

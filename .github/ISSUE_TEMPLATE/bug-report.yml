@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        For urgent help during the event, grab a mentor at the venue or ask on Discord (DISCORD_URL). Use this form for reproducible problems with the event repos.
+        For urgent help during the event, grab a mentor at the venue or ask on Discord (https://discord.gg/jy3QDxQ3jK). Use this form for reproducible problems with the event repos.
 
   - type: dropdown
     id: area

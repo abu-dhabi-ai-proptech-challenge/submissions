@@ -1,0 +1,64 @@
+name: Submission triage
+
+# Auto-triage for project submissions:
+#  - reads the Track answer from the Issue Form body
+#  - applies the matching track label
+#  - posts a welcome/confirmation comment with the pre-judging checklist
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  triage:
+    if: contains(github.event.issue.labels.*.name, 'submission')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const body = issue.body || "";
+
+            const TRACK_LABELS = {
+              "Land Intelligence": "land-intelligence",
+              "Investment Intelligence": "investment-intelligence",
+              "Future Communities": "future-communities",
+              "Decision Intelligence": "decision-intelligence",
+            };
+
+            // Issue Forms render dropdowns as "### Track\n\n<value>"
+            const match = body.match(/###\s*Track\s*\n+\s*(.+)/);
+            const track = match ? match[1].trim() : null;
+            const label = track && TRACK_LABELS[track];
+
+            if (label) {
+              await github.rest.issues.addLabels({
+                ...context.repo,
+                issue_number: issue.number,
+                labels: [label],
+              });
+            }
+
+            const trackLine = label
+              ? `Track registered: **${track}** (labeled \`${label}\`).`
+              : "We couldn't detect your track automatically — an organizer will label it shortly.";
+
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: issue.number,
+              body: [
+                `🎉 **Submission received!** Thanks, **${issue.title.replace(/^\[Submission\]\s*/i, "")}**.`,
+                "",
+                trackLine,
+                "",
+                "Before judging starts, double-check:",
+                "- [ ] Repo link opens in an incognito window (or organizer access granted)",
+                "- [ ] Demo link works without special accounts",
+                "- [ ] README explains how to run the project",
+                "",
+                "You can edit this Issue to fix typos or broken links **until the deadline**. Judges may ask questions here — watch for notifications. Good luck! 🚀",
+              ].join("\n"),
+            });

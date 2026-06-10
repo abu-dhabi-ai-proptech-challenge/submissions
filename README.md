@@ -47,9 +47,9 @@ Organizers label your Issue (`submission` + your track) and acknowledge it. You 
 ## Links
 
 - 🌐 Website: WEBSITE_URL
-- 💬 Discord: DISCORD_URL
-- 🐙 GitHub Org: GITHUB_ORG_URL
-- 📦 Starter kit: GITHUB_ORG_URL/starter-kit
+- 💬 Discord: https://discord.gg/jy3QDxQ3jK
+- 🐙 GitHub Org: https://github.com/abu-dhabi-ai-proptech-challenge
+- 📦 Starter kit: https://github.com/abu-dhabi-ai-proptech-challenge/starter-kit
 
 ---
 
