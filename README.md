@@ -33,6 +33,19 @@ The form asks for:
 
 Organizers label your Issue (`submission` + your track) and acknowledge it. You may edit to fix typos or broken links before the deadline; substantive changes after the deadline are not considered.
 
+## What happens after you submit
+
+Everything below is automatic — no waiting on a human:
+
+| When | What |
+|---|---|
+| Seconds | 🏷️ Your **track label** is applied and a welcome comment confirms receipt with a pre-judging checklist |
+| ~1 min | 🔗 **Link check** — your repo, demo and slides links are verified; if something's broken you get a comment so you can fix it before the deadline (re-runs on every edit) |
+| ~2 min | 🤖 **AI feedback** — constructive notes on strengths and what to tighten before demos, from the [AI Judge](docs/ai-judge.md) (advisory only — it never decides anything) |
+| Live | 🛰️ Your submission appears in the Discord [`#submissions-feed`](https://discord.gg/jy3QDxQ3jK) channel |
+
+After the deadline, submissions that arrive late are labeled `late` automatically, and judges receive a private AI pre-screening report to help them prioritize review time. **Human judges make every decision** — full methodology: [`docs/ai-judge.md`](docs/ai-judge.md).
+
 ## Other templates
 
 - ❓ **[Question](../../issues/new?template=question.yml)** — anything about rules, tracks, data, or logistics
