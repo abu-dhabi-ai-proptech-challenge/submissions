@@ -1,0 +1,53 @@
+name: AI Judge (advisory)
+
+# Manually-triggered advisory pre-screen of all submissions.
+# Run it at the deadline freeze; the report lands as a workflow artifact
+# (visible only to people with repo access — scores are never public).
+#
+# Requires the ANTHROPIC_API_KEY repository secret
+# (Repo → Settings → Secrets and variables → Actions → New repository secret).
+#
+# Methodology, limits, and what this does NOT do: docs/ai-judge.md
+on:
+  workflow_dispatch:
+    inputs:
+      include_late:
+        description: "Also score submissions labeled `late`"
+        type: boolean
+        default: false
+      post_feedback:
+        description: "Comment strengths/improvement notes on each Issue (never scores)"
+        type: boolean
+        default: false
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  judge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install anthropic
+
+      - name: Run AI Judge
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 .github/scripts/ai_judge.py \
+            ${{ inputs.include_late && '--include-late' || '' }} \
+            ${{ inputs.post_feedback && '--post-feedback' || '' }}
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-judge-report
+          path: ai-judge-report.md
+          retention-days: 30

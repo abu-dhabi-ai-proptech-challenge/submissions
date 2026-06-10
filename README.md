@@ -43,6 +43,7 @@ Organizers label your Issue (`submission` + your track) and acknowledge it. You 
 - [`docs/submission-guide.md`](docs/submission-guide.md) — full submission walkthrough and checklist
 - [`docs/judging-criteria.md`](docs/judging-criteria.md) — how projects are scored
 - [`docs/demo-day-guide.md`](docs/demo-day-guide.md) — how to deliver a 3-minute demo that lands
+- [`docs/ai-judge.md`](docs/ai-judge.md) — how the AI pre-screening judge works (advisory; humans decide)
 
 ## Links
 
