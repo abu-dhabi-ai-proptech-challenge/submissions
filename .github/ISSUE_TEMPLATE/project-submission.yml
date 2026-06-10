@@ -1,5 +1,5 @@
 name: "🚀 Project Submission"
-description: "Submit your team's project for the Abu Dhabi AI City Challenge. One submission per team, before the deadline."
+description: "Submit your team's project for the Abu Dhabi AI PropTech Challenge. One submission per team, before the deadline."
 title: "[Submission] <Team Name> — <Project Name>"
 labels:
   - submission
@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        ## Abu Dhabi AI City Challenge — Project Submission
+        ## Abu Dhabi AI PropTech Challenge — Project Submission
 
         **Building the Intelligence Layer for Land, Investment and Communities**
 

@@ -10,7 +10,7 @@
 
 ### 1. Get your project into a repo
 
-- Use your own repo, or generate one from the [`project-template`](https://github.com/abu-dhabi-ai-city-challenge/project-template) ("Use this template" button).
+- Use your own repo, or generate one from the [`project-template`](https://github.com/abu-dhabi-ai-proptech-challenge/project-template) ("Use this template" button).
 - Public is preferred. If private, add the organizer account as a collaborator so judges can review.
 - Make sure the README explains how to run it.
 

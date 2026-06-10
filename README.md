@@ -1,8 +1,8 @@
-# Abu Dhabi AI City Challenge — Submissions
+# Abu Dhabi AI PropTech Challenge — Submissions
 
 **Building the Intelligence Layer for Land, Investment and Communities**
 
-This is where teams submit their projects for the Abu Dhabi AI City Challenge, hosted by **Cursor** and **eVoost AI** at **Hub71, Abu Dhabi**.
+This is where teams submit their projects for the Abu Dhabi AI PropTech Challenge, hosted by **Cursor** and **eVoost AI** at **Hub71, Abu Dhabi**.
 
 ## How to submit
 
@@ -11,7 +11,7 @@ This is where teams submit their projects for the Abu Dhabi AI City Challenge, h
 
 ### 1. Build in your own repo
 
-Use any repo you control — your own from scratch, or one generated from the [`project-template`](https://github.com/abu-dhabi-ai-city-challenge/project-template) ("Use this template"). Public repos preferred; private repos must grant the organizer account access.
+Use any repo you control — your own from scratch, or one generated from the [`project-template`](https://github.com/abu-dhabi-ai-proptech-challenge/project-template) ("Use this template"). Public repos preferred; private repos must grant the organizer account access.
 
 ### 2. Open the Project Submission Issue
 

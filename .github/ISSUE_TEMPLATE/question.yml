@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Check the [FAQ](https://github.com/abu-dhabi-ai-city-challenge/starter-kit/blob/main/docs/faq.md) first — many answers are already there. For fast answers during the event, Discord (DISCORD_URL) is quicker.
+        Check the [FAQ](https://github.com/abu-dhabi-ai-proptech-challenge/starter-kit/blob/main/docs/faq.md) first — many answers are already there. For fast answers during the event, Discord (DISCORD_URL) is quicker.
 
   - type: dropdown
     id: topic
