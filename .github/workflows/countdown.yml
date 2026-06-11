@@ -53,7 +53,7 @@ jobs:
           SUBMIT="https://github.com/${GITHUB_REPOSITORY}/issues/new/choose"
 
           declare -A MSG
-          MSG[360]="⏳ **6 hours to the submission deadline.** Plenty of time — but start your repo and skim the form now: <$SUBMIT>"
+          MSG[180]="🚀 **Hacking is on — 3.5 hours to the submission deadline (16:30).** Start your repo and skim the form early: <$SUBMIT>"
           MSG[120]="⏳ **2 hours left.** Freeze scope, polish the demo path. Record a fallback demo video NOW — deploys love to break at the worst moment."
           MSG[60]="⏰ **1 hour left.** The form takes ~10 minutes. Submitting early and editing later beats submitting at the buzzer: <$SUBMIT>"
           MSG[30]="🚨 **30 minutes!** If you haven't opened the submission Issue yet, do it right now and edit details after: <$SUBMIT>"
@@ -61,7 +61,7 @@ jobs:
           MSG[0]="🏁 **Submissions are closed.** The Issue timestamp is what counts. Demos and judging info coming up — great work, everyone. 👏"
 
           posted="$POSTED"
-          for offset in 360 120 60 30 10 0; do
+          for offset in 180 120 60 30 10 0; do
             case ",$posted," in *",$offset,"*) continue;; esac
             fire=$(( dl - offset * 60 ))
             # fire window: from the milestone until 15 min after (tolerates cron jitter)
