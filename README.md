@@ -60,7 +60,7 @@ After the deadline, submissions that arrive late are labeled `late` automaticall
 
 ## Links
 
-- 🌐 Website: WEBSITE_URL
+- 🌐 Website: https://citygeist-core.lovable.app
 - 💬 Discord: https://discord.gg/jy3QDxQ3jK
 - 🐙 GitHub Org: https://github.com/abu-dhabi-ai-proptech-challenge
 - 📦 Starter kit: https://github.com/abu-dhabi-ai-proptech-challenge/starter-kit

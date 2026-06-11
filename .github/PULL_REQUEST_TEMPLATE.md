@@ -16,4 +16,4 @@ Open a PR here only to improve the docs in this repo.
 ## Checklist
 
 - [ ] I am **not** submitting a project here (projects go via the [Project Submission Issue form](../../issues/new?template=project-submission.yml))
-- [ ] Links work and remaining placeholders (`WEBSITE_URL`, `REGISTER_URL`, ...) are preserved unless intentionally replaced
+- [ ] Links work and remaining placeholders (<https://citygeist-core.lovable.app>, <https://citygeist-core.lovable.app/#register>, ...) are preserved unless intentionally replaced
