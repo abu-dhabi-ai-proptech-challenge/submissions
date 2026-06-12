@@ -61,10 +61,10 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: echo "GATE=open" >> "$GITHUB_ENV"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         if: env.GATE == 'open'
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         if: env.GATE == 'open'
         with:
           python-version: "3.12"
