@@ -1,0 +1,52 @@
+name: Event Pulse
+
+# The AI narrates the event, live: every hour on event day it reads real
+# signals (submissions by track, Discord activity) and publishes a punchy
+# pulse to BOTH screens — Discord #announcements and the venue projector
+# (the /live dashboard reads pulse.json from this repo within 60s).
+#
+# Outside 26 June 12:00-18:00 GST it exits silently. Manual test:
+# Actions → Event Pulse → Run workflow (force=true) → writes a pre-event pulse.
+on:
+  schedule:
+    - cron: "5 * * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Run now regardless of date (test / pre-event pulse)"
+        type: boolean
+        default: true
+
+permissions:
+  issues: read
+  contents: write   # commits pulse.json
+
+concurrency:
+  group: event-pulse
+  cancel-in-progress: false
+
+jobs:
+  pulse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install anthropic
+
+      - name: Generate and publish the pulse
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
+          ANNOUNCE_WEBHOOK: ${{ secrets.DISCORD_ANNOUNCE_WEBHOOK }}
+          FORCE: ${{ inputs.force || 'false' }}
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::notice::ANTHROPIC_API_KEY not set — pulse skipped."; exit 0
+          fi
+          python3 .github/scripts/event_pulse.py
