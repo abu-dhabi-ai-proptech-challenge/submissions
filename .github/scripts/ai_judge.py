@@ -260,7 +260,7 @@ def main() -> None:
         for r in results:
             ai = r["ai"]
             body = "\n".join([
-                "🤖 **AI feedback on your submission** (advisory — does not affect judging):",
+                "🤖 **AI feedback on your submission** (advisory only — does not affect judging or eligibility):",
                 "",
                 "**What stands out:** " + "; ".join(ai["strengths"]),
                 "**Worth tightening before demos:** " + ("; ".join(ai["concerns"]) or "looks solid"),

@@ -82,7 +82,7 @@ jobs:
             echo "::warning::ANTHROPIC_API_KEY secret not set — cannot judge."; exit 0
           fi
           python3 .github/scripts/ai_judge.py \
-            ${{ (github.event_name == 'schedule' || inputs.include_late) && '--include-late' || '' }} \
+            ${{ inputs.include_late && '--include-late' || '' }} \
             ${{ inputs.post_feedback && '--post-feedback' || '' }} \
             --out ai-judge-report.md
           echo "REPORT=ready" >> "$GITHUB_ENV"

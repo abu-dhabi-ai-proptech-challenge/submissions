@@ -53,7 +53,7 @@ jobs:
           SUBMIT="https://github.com/${GITHUB_REPOSITORY}/issues/new/choose"
 
           declare -A MSG
-          MSG[180]="🚀 **Hacking is on — 3.5 hours to the submission deadline (16:30).** Start your repo and skim the form early: <$SUBMIT>"
+          MSG[180]="🚀 **Hacking is on — 3 hours to the submission deadline (16:30).** Start your repo and skim the form early: <$SUBMIT>"
           MSG[120]="⏳ **2 hours left.** Freeze scope, polish the demo path. Record a fallback demo video NOW — deploys love to break at the worst moment."
           MSG[60]="⏰ **1 hour left.** The form takes ~10 minutes. Submitting early and editing later beats submitting at the buzzer: <$SUBMIT>"
           MSG[30]="🚨 **30 minutes!** If you haven't opened the submission Issue yet, do it right now and edit details after: <$SUBMIT>"
