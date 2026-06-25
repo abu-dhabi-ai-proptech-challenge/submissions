@@ -11,7 +11,7 @@ This is where teams submit their projects for the Abu Dhabi AI PropTech Challeng
 
 ### 1. Build in your own repo
 
-Use any repo you control — your own from scratch, or one generated from the [`project-template`](https://github.com/abu-dhabi-ai-proptech-challenge/project-template) ("Use this template"). Public repos preferred; private repos must grant the organizer account access.
+Use any repo you control — your own from scratch, or one generated from the [`project-template`](https://github.com/abu-dhabi-ai-proptech-challenge/project-template) ("Use this template"). Public repos preferred; private repos must grant access to `@evoost-judge`.
 
 ### 2. Open the Project Submission Issue
 

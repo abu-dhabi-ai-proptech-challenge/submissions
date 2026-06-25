@@ -47,7 +47,7 @@ jobs:
                 });
                 clearTimeout(timer);
                 if (res.status === 404) {
-                  problems.push(`- **${name}** → \`404 Not Found\`: ${url} — typo, or a private repo? If private, grant the organizer account access.`);
+                  problems.push(`- **${name}** → \`404 Not Found\`: ${url} — typo, or a private repo? If private, grant access to the GitHub account evoost-judge.`);
                 } else if (res.status >= 400 && res.status !== 401 && res.status !== 403) {
                   problems.push(`- **${name}** → \`HTTP ${res.status}\`: ${url}`);
                 }

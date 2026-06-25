@@ -83,7 +83,7 @@ body:
     id: repo-link
     attributes:
       label: GitHub repo link
-      description: Public repo preferred. If private, grant the organizer account access before submitting.
+      description: Public repo preferred. If private, grant access to the GitHub account evoost-judge before submitting.
       placeholder: "https://github.com/your-team/your-project"
     validations:
       required: true
