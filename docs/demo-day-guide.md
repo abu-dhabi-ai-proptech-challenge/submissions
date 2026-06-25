@@ -1,41 +1,50 @@
-# Demo Day Guide
+# Demo Guide
 
-You have **3 minutes** to demo and up to **2 minutes** of judge Q&A. Three minutes is shorter than it sounds. Here's how to make them count.
+**There are no live demos this year.** With a full room, judging happens from your
+**submission**: judges open your deployed link, watch your demo video, and read
+your repo. Your job is to make the value land *without you in the room*.
 
-## The shape of a great 3-minute demo
+Aim for one of these (a deployed link is best; the video is your safety net):
+
+- **A deployed tool that's obvious to use.** If a judge can click around and "get
+  it" in a minute, that's the strongest possible demo. Self-explanatory wins.
+- **A 2–3 minute demo video.** A screen recording of the core flow, narrated.
+  Always include this if there's any chance your deploy is flaky.
+
+## The shape of a great 2–3 minute demo video
 
 | Time | Beat | What to do |
 |---|---|---|
 | 0:00–0:20 | **Problem** | One sentence: who hurts, and how. No company history, no team intros. |
-| 0:20–0:40 | **What you built** | One sentence: "We built X, which does Y." Then stop talking about it and show it. |
-| 0:40–2:20 | **Live demo** | The core flow, end to end. Narrate what the AI is doing and why the output matters. |
-| 2:20–2:50 | **The "aha"** | The single moment that makes judges lean in — an explained score, a surprising match, a question answered with sources. Land it deliberately. |
-| 2:50–3:00 | **Close** | What you built today + the one-line vision. Done. |
+| 0:20–0:40 | **What you built** | One sentence: "We built X, which does Y." Then show it. |
+| 0:40–2:00 | **The flow** | The core flow, end to end. Narrate what the AI is doing and why the output matters. |
+| 2:00–2:30 | **The "aha"** | The single moment that makes judges lean in — an explained score, a surprising match, a question answered with sources. Land it deliberately. |
+| 2:30–3:00 | **Close** | What you built today + the one-line vision. Done. |
 
-## Preparation
+## Make it judge-proof
 
-- **Rehearse twice, timed.** The first run is always over 4 minutes. Cut until it isn't.
-- **Pre-load everything.** App running, tabs open, data seeded, model warm. The clock doesn't pause for cold starts.
-- **Have a fallback.** A recorded run of the same flow, ready to play if the live demo breaks. Judges respect a smooth recovery.
-- **One driver, one narrator** works well for teams; solo narrating-while-driving works if rehearsed.
+- **Deployed link first.** Put it in the submission and make sure it works in an
+  incognito window, with no login the judges don't have. Add seed data / an
+  example so the first click shows something real.
+- **Record the video anyway.** Deploys break at the worst moment; a recording of
+  the same flow guarantees judges always see the "aha".
+- **Setup instructions matter.** If a judge has to run it locally, a clear README
+  ("clone, install, run, open this URL") is the difference between a score and a shrug.
+- **Say what's real.** "This is live against the sample data" or "this part is
+  mocked." Honesty scores; inflated claims don't.
 
-## On stage
+## Answer the obvious questions inside your submission
 
-- Show output, not architecture diagrams. If architecture matters, one slide, ten seconds.
-- Say what's real: "this is live against the sample data" or "this part is mocked." Honesty scores.
-- If something breaks, switch to the fallback without apologizing for more than one sentence.
+There's no live Q&A, so pre-empt the questions judges always have — in your
+README, your video, or the submission form:
 
-## Q&A
-
-Likely judge questions — have answers ready:
-
-- "What did you build today versus before?"
-- "What happens with 100× the data?"
-- "Why is AI the right tool here, versus rules?"
-- "Who is the first real user?"
+- What did you build *today* versus before?
+- Why is AI the right tool here, versus plain rules?
+- Who is the first real user, and what would 100× the data do?
 
 ## Logistics
 
-- Demo order and AV details are announced at the venue.
-- HDMI/USB-C will be available; bring your own adapter if your machine is exotic.
-- Stay within time — at 3:00 you'll be cut off, mid-sentence if necessary.
+- Everything is judged from your **submission** — no stage, no demo order, no AV.
+- Submit before **16:30 GST**; the Issue timestamp is what counts.
+- Judging runs **16:30–17:45**, then awards. Watch your submission Issue for any
+  questions from the judges.

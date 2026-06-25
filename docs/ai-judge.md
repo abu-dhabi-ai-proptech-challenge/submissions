@@ -15,7 +15,7 @@ When organizers trigger it at the deadline freeze, the AI Judge:
 2. **Inspects your repo** — README, file tree, languages, and commit timestamps (public evidence only; it never executes your code).
 3. **Scores against the public rubric** — the same five criteria human judges use, 0–20 each, with a written rationale per criterion citing concrete evidence.
 4. **Produces a report for judges** — ranked per track and overall, with per-team strengths and a "verify this" list of claims humans should check.
-5. **Optionally sends you feedback** — a comment on your Issue with strengths and things worth tightening before demos. Never scores.
+5. **Optionally sends you feedback** — a comment on your Issue with strengths and things worth tightening before the deadline. Never scores.
 
 ## How it scores
 
@@ -26,7 +26,7 @@ The five public criteria, with one honest adaptation:
 | Problem & relevance | Same | Fully assessable from the submission |
 | Technical execution | Same, from repo evidence | Code structure, commit activity, run path |
 | Use of AI | Same | Is AI doing real work or decorating? |
-| Demo quality | **Demo readiness** | The AI can't watch your 3 minutes — it scores whether your demo *can* land: working link, instructions, recorded fallback |
+| Demo quality | **Demo readiness** | The AI can't try your tool for you — it scores whether your demo *can* land: working link, instructions, recorded video |
 | Potential impact | Same | Fully assessable from the submission |
 
 Calibration rules baked into the prompt:
@@ -50,7 +50,7 @@ Calibration rules baked into the prompt:
 - ❌ Publish or announce scores
 - ❌ Execute your code or open your demo with credentials
 - ❌ Penalize you for a private repo it can't read (it flags "no evidence" for humans instead)
-- ❌ Replace the conversation between you and the judges at demo time
+- ❌ Replace the judges' own review of your submission
 
 ## For organizers
 

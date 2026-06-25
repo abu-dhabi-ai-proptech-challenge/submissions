@@ -100,7 +100,7 @@ def main() -> None:
     response = client.messages.create(
         model=MODEL, max_tokens=500,
         system=("You write the hourly Event Pulse for the Abu Dhabi AI PropTech Challenge "
-                "(one-day AI hackathon, 4 tracks, submissions close 16:30 GST, demos 17:00). "
+                "(one-day AI hackathon, 4 tracks, submissions close 16:30 GST, judging 16:30–17:45). "
                 "It shows on the venue's big screen and in Discord. Style: ambitious, premium, "
                 "builder-first, future-city; never overhyped, never bureaucratic. Use ONLY the "
                 "real numbers given — zero submissions early in the day is normal (teams submit "

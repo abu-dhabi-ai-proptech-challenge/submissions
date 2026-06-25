@@ -41,7 +41,7 @@ Everything below is automatic — no waiting on a human:
 |---|---|
 | Seconds | 🏷️ Your **track label** is applied and a welcome comment confirms receipt with a pre-judging checklist |
 | ~1 min | 🔗 **Link check** — your repo, demo and slides links are verified; if something's broken you get a comment so you can fix it before the deadline (re-runs on every edit) |
-| ~2 min | 🤖 **AI feedback** — constructive notes on strengths and what to tighten before demos, from the [AI Judge](docs/ai-judge.md) (advisory only — it never decides anything) |
+| ~2 min | 🤖 **AI feedback** — constructive notes on strengths and what to tighten before the deadline, from the [AI Judge](docs/ai-judge.md) (advisory only — it never decides anything) |
 | Live | 🛰️ Your submission appears in the Discord [`#submissions-feed`](https://discord.gg/jy3QDxQ3jK) channel |
 
 After the deadline, submissions that arrive late are labeled `late` automatically, and judges receive a private AI pre-screening report to help them prioritize review time. **Human judges make every decision** — full methodology: [`docs/ai-judge.md`](docs/ai-judge.md).
@@ -55,7 +55,7 @@ After the deadline, submissions that arrive late are labeled `late` automaticall
 
 - [`docs/submission-guide.md`](docs/submission-guide.md) — full submission walkthrough and checklist
 - [`docs/judging-criteria.md`](docs/judging-criteria.md) — how projects are scored
-- [`docs/demo-day-guide.md`](docs/demo-day-guide.md) — how to deliver a 3-minute demo that lands
+- [`docs/demo-day-guide.md`](docs/demo-day-guide.md) — how to make your demo land — deployed tool + recorded video
 - [`docs/ai-judge.md`](docs/ai-judge.md) — how the AI pre-screening judge works (advisory; humans decide)
 
 ## Links

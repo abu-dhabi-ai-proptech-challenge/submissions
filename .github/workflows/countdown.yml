@@ -58,7 +58,7 @@ jobs:
           MSG[60]="⏰ **1 hour left.** The form takes ~10 minutes. Submitting early and editing later beats submitting at the buzzer: <$SUBMIT>"
           MSG[30]="🚨 **30 minutes!** If you haven't opened the submission Issue yet, do it right now and edit details after: <$SUBMIT>"
           MSG[10]="🚨 **10 MINUTES.** Submit. Now. Polish later."
-          MSG[0]="🏁 **Submissions are closed.** The Issue timestamp is what counts. Demos and judging info coming up — great work, everyone. 👏"
+          MSG[0]="🏁 **Submissions are closed.** The Issue timestamp is what counts. Judging is underway — judges are reviewing your submissions. Great work, everyone. 👏"
 
           posted="$POSTED"
           for offset in 180 120 60 30 10 0; do
