@@ -45,6 +45,6 @@ README, your video, or the submission form:
 ## Logistics
 
 - Everything is judged from your **submission** — no stage, no demo order, no AV.
-- Submit before **16:30 GST**; the Issue timestamp is what counts.
-- Judging runs **16:30–17:45**, then awards. Watch your submission Issue for any
+- Submit before **17:00 GST**; the Issue timestamp is what counts.
+- Judging runs **17:00–17:45**, then awards. Watch your submission Issue for any
   questions from the judges.

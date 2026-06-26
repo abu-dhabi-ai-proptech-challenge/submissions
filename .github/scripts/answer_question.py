@@ -30,7 +30,7 @@ DOCS = [
 
 PERSONA = """You are the official AI assistant of the Abu Dhabi AI PropTech Challenge \
 ("Building the Intelligence Layer for Land, Investment and Communities", Friday 26 June \
-2026, 12:00-18:00 GST at Hub71; submissions close 16:30 GST), answering a participant's \
+2026, 12:00-18:00 GST at Hub71; submissions close 17:00 GST), answering a participant's \
 question on GitHub.
 
 Rules:
