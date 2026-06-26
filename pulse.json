@@ -1,12 +1,12 @@
 {
-  "headline": "\u26a1 13:45 GST \u2014 Heads Down, Builders. The Deadline Is Calling.",
-  "body": "With 8 messages buzzing across Discord in the last hour, the room is locked in and shipping toward the 16:30 cutoff \u2014 zero submissions on the board is exactly where we expect to be this close to crunch time. Four tracks wide open, just under three hours to go: now's the moment to turn momentum into a submission.",
-  "generated_at": "2026-06-26T09:45:31+00:00",
+  "headline": "\u23f1\ufe0f 41 minutes to deadline \u2014 first builds are landing",
+  "body": "With submissions closing at 17:00 GST, two teams are already on the board: Daniel Sandoval and BasselS, one in Investment Intelligence and one in Future Communities. Land Intelligence and Decision Intelligence are still wide open \u2014 get your builds in before the clock runs out.",
+  "generated_at": "2026-06-26T12:19:34+00:00",
   "totals": {
     "Land Intelligence": 0,
-    "Investment Intelligence": 0,
-    "Future Communities": 0,
+    "Investment Intelligence": 1,
+    "Future Communities": 1,
     "Decision Intelligence": 0
   },
-  "total": 0
+  "total": 2
 }
